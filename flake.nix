@@ -17,12 +17,16 @@
     devshell,
     ...
   }:
-    flake-utils.lib.eachDefaultSystem (
+    {
+      overlays.default = import ./overlay.nix;
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
             devshell.overlay
+            self.overlays.default
           ];
         };
       in {
@@ -30,6 +34,14 @@
           imports = [
             (pkgs.devshell.importTOML ./devshell.toml)
           ];
+        };
+        checks = {
+          inherit
+            (pkgs)
+            clean-emptydir
+            listgroups
+            listpath
+            ;
         };
       }
     );
