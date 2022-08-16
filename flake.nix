@@ -2,8 +2,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     devshell.url = "github:numtide/devshell";
-    flake-utils.url = "github:numtide/flake-utils";
 
+    flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -31,18 +31,11 @@
         };
       in {
         devShells.default = pkgs.devshell.mkShell {
-          imports = [
-            (pkgs.devshell.importTOML ./devshell.toml)
-          ];
+          imports = [(pkgs.devshell.importTOML ./devshell.toml)];
         };
-        checks = {
-          inherit
-            (pkgs)
-            clean-emptydir
-            listgroups
-            listpath
-            ;
-        };
+        packages = import ./scripts.nix (name: pkgs.${name});
+        apps = import ./scripts.nix (name: (flake-utils.lib.mkApp {drv = self.packages.${system}.${name};}));
+        checks = import ./scripts.nix (name: (self.packages.${system}.${name}));
       }
     );
 }
