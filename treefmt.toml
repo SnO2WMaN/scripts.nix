@@ -2,11 +2,7 @@
 command = "alejandra"
 includes = ["*.nix"]
 
-[formatter.dprint]
-command = "dprint"
+[formatter.taplo-cli]
+command = "taplo"
 options = ["fmt"]
-includes = [
-  "*.json",
-  "*.toml",
-  "*.md",
-]
+includes = ["*.toml"]
