@@ -1,8 +1,14 @@
 [formatter.alejandra]
 command = "alejandra"
-includes = ["*.nix"]
+includes = [
+  "*.nix",
+]
 
-[formatter.taplo-cli]
-command = "taplo"
+[formatter.dprint]
+command = "dprint"
 options = ["fmt"]
-includes = ["*.toml"]
+includes = [
+  "*.json",
+  "*.toml",
+  "*.md",
+]

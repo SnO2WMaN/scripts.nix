@@ -40,12 +40,7 @@
         };
         packages = import ./scripts.nix (name: (pkgs.${name}));
         apps = import ./scripts.nix (name: (flake-utils.lib.mkApp {drv = self.packages.${system}.${name};}));
-        checks =
-          (import ./scripts.nix (name: (self.packages.${system}.${name})))
-          // {
-            treefmt = pkgs.callPackage ./nix/check-treefmt.nix {};
-            yamllint = pkgs.callPackage ./nix/check-yamllint.nix {};
-          };
+        checks = import ./scripts.nix (name: (self.packages.${system}.${name}));
       }
     );
 }

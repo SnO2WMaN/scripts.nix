@@ -1,5 +1,8 @@
 [devshell]
-packages = ["alejandra", "dprint", "taplo-cli"]
+packages = [
+  "alejandra",
+  "dprint",
+]
 
 [[commands]]
 package = "treefmt"
