@@ -1,5 +1,7 @@
-.env
-.direnv
-
+# Nix
 result
-target
+.direnv/
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
